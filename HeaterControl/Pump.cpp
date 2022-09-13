@@ -1,7 +1,8 @@
 #include "Arduino.h"
 #include "Pump.h"
 #include "TimerOn.h"
-TimerOn timer;
+TimerOn tPumpOn;
+TimerOn tPumpOff;
 
 //Constructor.
 Pump::Pump(int pin)
@@ -14,17 +15,18 @@ Pump::Pump(int pin)
 void Pump::activation(bool comand)
 {
   if (comand) {
-    timer.setTimer(5000);
-    if (timer.activation(comand)) {
+    tPumpOn.setTimer(5000);
+    if (tPumpOn.activation(comand)) {
       digitalWrite(_pin, HIGH);
       _status = true;
- 
+
     }
     return;
   } else if (!comand)  {
-      if (timer.activation(true)){
-        _status = false;
-       }
+    tPumpOff.setTimer(5000);
+    if (tPumpOff.activation(true)) {
+      _status = false;
+    }
     return;
   }
 }
@@ -34,7 +36,7 @@ void Pump::getStatus() {
   _msg();
 }
 
-//init inicializes the GPIO pin mode function.
+//init initializes the GPIO pin function mode .
 void Pump::_init() {
   pinMode(_pin, OUTPUT);
 
