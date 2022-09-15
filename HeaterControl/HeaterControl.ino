@@ -1,30 +1,34 @@
-#include "Pump.h"
+#include <OneWire.h>
+#include <DallasTemperature.h>
+#include "Calculations.h"
 #include "TimerOn.h"
 
-Pump pump(14);
+const int oneWirePin = 5;
+OneWire oneWireBus(oneWirePin);
+DallasTemperature sensors(&oneWireBus);
+DeviceAddress streamerSensor = { 0x28, 0x94, 0xE2, 0xDF, 0x02, 0x00, 0x00, 0xFE };
+DeviceAddress poolSensor = { 0x28, 0x6B, 0xDF, 0xDF, 0x02, 0x00, 0x00, 0xC0 };
 
-TimerOn timerOn;
+
+Calculations calcs;
+
+TimerOn timer;
+
+
 
 void setup() {
   Serial.begin(9600);
-  pinMode(13, INPUT);
+  sensors.begin();
+  sensors.setResolution(streamerSensor, 10);
+  sensors.setResolution(poolSensor, 10);
+
 }
 
 void loop() {
-  String comandSerial;
-  if (Serial.available()) {
-    comandSerial = Serial.readString();
-    switch (comandSerial.toInt()) {
-      case 1:
-        pump.getStatus();
-        break;
-    }
-  }
+ 
+timer.setTimer(5000);
+timer.activation(true);
+timer.getCount();
 
 
-  if (digitalRead(13)) {
-    pump.activation(true);
-  } else {
-    pump.activation(false);
-  }
 }
