@@ -9,9 +9,13 @@ DallasTemperature sensors(&oneWireBus);
 DeviceAddress streamerSensor = { 0x28, 0x94, 0xE2, 0xDF, 0x02, 0x00, 0x00, 0xFE };
 DeviceAddress poolSensor = { 0x28, 0x6B, 0xDF, 0xDF, 0x02, 0x00, 0x00, 0xC0 };
 
+//global variables.
+float ss;
+float ps;
+
+
 
 Calculations calcs;
-
 TimerOn timer;
 
 
@@ -25,10 +29,19 @@ void setup() {
 }
 
 void loop() {
- 
-timer.setTimer(5000);
-timer.activation(true);
-timer.getCount();
+  // Send comand to get temperature from sensors.
+  sensors.requestTemperatures();
+  ss = sensors.getTempC(streamerSensor);
+  ps = sensors.getTempC(poolSensor);
+
+  if (calcs.measureError()) {
+    Serial.print("Temperature sensor is not okay");
+    return;
+  } else {
+    calcs.deltaTemp(ss, ps);
+
+
+  }
 
 
 }

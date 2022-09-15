@@ -10,6 +10,14 @@ class Calculations
     //Constructor.
     Calculations();
     //Public methods.
-    float deltaTemp(float sensor1, float sensor2);
+    float deltaTemp(float streamerSensor, float poolSensor);
+    bool detaTempReached(float deltaSp, float deltaPv);
+    bool measureError();
+
+    //Add private members.
+    private:
+    //private variables.
+    float _streamerSensor;
+    float _poolSensor;
 };
 #endif
