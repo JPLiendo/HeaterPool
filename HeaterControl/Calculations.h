@@ -13,11 +13,13 @@ class Calculations
     float deltaTemp(float streamerSensor, float poolSensor);
     bool detaTempReached(float deltaSp, float deltaPv);
     bool measureError();
+    void setDetaSp(float deltaSp);
 
     //Add private members.
     private:
     //private variables.
     float _streamerSensor;
     float _poolSensor;
+    float _deltaSp;
 };
 #endif

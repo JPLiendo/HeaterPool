@@ -15,7 +15,7 @@ class Pump
     //Constructor.
     Pump(int pin);
     //Public methods.
-    void activation(bool comand);//activation start or stop the pump.
+    bool activation(bool comand);//activation start or stop the pump.
     void getStatus();//getStatus return the pump state.
 
     //Add private members.

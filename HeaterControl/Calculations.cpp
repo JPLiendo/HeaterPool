@@ -41,3 +41,10 @@ bool Calculations::measureError()
     return false;
   }
 }
+
+//setDeltaSp sets the delta temperature setpoint.
+void Calculations::setDetaSp(float deltaSp)
+{
+  _deltaSp = deltaSp;
+  
+  }

@@ -12,22 +12,22 @@ Pump::Pump(int pin)
 }
 
 //activation start or stop the pump.
-void Pump::activation(bool comand)
+bool Pump::activation(bool comand)
 {
   if (comand) {
     tPumpOn.setTimer(5000);
     if (tPumpOn.activation(comand)) {
       digitalWrite(_pin, HIGH);
       _status = true;
-
     }
-    return;
+    return _status;
   } else if (!comand)  {
     tPumpOff.setTimer(5000);
     if (tPumpOff.activation(true)) {
+      digitalWrite(_pin, LOW);
       _status = false;
     }
-    return;
+    return _status;
   }
 }
 
